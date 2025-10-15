@@ -23,7 +23,7 @@
   "author": "Jens Lübberstedt <jens@florentine.ai>",
   "license": "MIT",
   "dependencies": {
-    "csvtojson": "^2.0.10",
+    "csv-parse": "^5.5.6",
     "fast-xml-parser": "^4.5.0",
     "iconv-lite": "^0.6.3",
     "qs": "^6.13.1"
