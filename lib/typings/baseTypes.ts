@@ -61,6 +61,10 @@ export interface DownloadOptions {
   timeouts?: Timeouts;
 }
 
+export interface DownloadStreamOptions {
+  unzip?: boolean;
+}
+
 export type Scope = 'sellingpartnerapi::notifications' | 'sellingpartnerapi::client_credential:rotation';
 
 export interface ExchangeResponse extends BaseResponse {

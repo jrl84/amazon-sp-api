@@ -29,7 +29,7 @@ import {
   GetFeedsQuery,
   GetFeedsResponse
 } from './operations/feeds';
-import {Config, DownloadDocument, DownloadOptions, Scope, ExchangeResponse} from './baseTypes';
+import {Config, DownloadDocument, DownloadOptions, DownloadStreamOptions, Scope, ExchangeResponse} from './baseTypes';
 import {
   ConfirmPreorderPath,
   ConfirmPreorderQuery,
@@ -129,6 +129,8 @@ declare module 'amazon-sp-api' {
     callAPI<TOperation extends Operation>(req_params: ReqParams<TOperation>): Promise<ObjectType<TOperation>>;
 
     download<T extends ReportDocumentType>(details: DownloadDocument, options?: DownloadOptions): T;
+
+    downloadStream(details: DownloadDocument, options?: DownloadStreamOptions): Promise<NodeJS.ReadableStream>;
 
     upload<T>(
       details: {
