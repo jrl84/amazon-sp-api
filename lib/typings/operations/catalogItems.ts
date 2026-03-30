@@ -72,13 +72,13 @@ interface Pagination {
 
 interface Refinements {
   brands: BrandRefinement[];
-  interfaceifications: interfaceificationRefinement[];
+  classifications: ClassificationRefinement[];
 }
 
 interface Item {
   asin: string;
   attributes?: ItemAttributes;
-  interfaceifications?: ItemBrowseinterfaceifications;
+  classifications?: ItemBrowseClassifications;
   dimensions?: ItemDimensions;
   identifiers?: ItemIdentifiers[];
   images?: ItemImages[];
@@ -94,22 +94,22 @@ interface BrandRefinement {
   brandName: string;
 }
 
-interface interfaceificationRefinement {
+interface ClassificationRefinement {
   numberOfResults: number;
   displayName: string;
-  interfaceificationId: string;
+  classificationId: string;
 }
 
 interface ItemAttributes {
   displayName: string;
-  interfaceificationId: string;
-  parent?: ItemBrowseinterfaceification;
+  classificationId: string;
+  parent?: ItemBrowseClassifications;
 }
 
-interface ItemBrowseinterfaceifications {
+interface ItemBrowseClassifications {
   displayName: string;
-  interfaceificationId: string;
-  parent?: ItemBrowseinterfaceifications;
+  classificationId: string;
+  parent?: ItemBrowseClassifications;
 }
 
 interface ItemDimensions {
@@ -180,12 +180,12 @@ type Type = 'VARIATION' | 'PACKAGE_HIERARCHY';
 
 interface ItemSalesRanks {
   marketplaceId: string;
-  interfaceificationRanks: IteminterfaceificationSalesRank[];
+  classificationRanks: ItemClassificationSalesRank[];
   displayGroupRanks: ItemDisplayGroupSalesRank[];
 }
 
-interface IteminterfaceificationSalesRank {
-  interfaceificationId: string;
+interface ItemClassificationSalesRank {
+  classificationId: string;
   title: string;
   link: string;
   rank: number;
@@ -203,10 +203,10 @@ interface ItemSummaries {
   adultProduct?: boolean;
   autographed?: boolean;
   brand?: string;
-  browseinterfaceification?: ItemBrowseinterfaceification;
+  browseClassification?: ItemBrowseClassification;
   color?: string;
   contributors?: ItemContributor[];
-  iteminterfaceification?: Iteminterfaceification;
+  itemClassification?: ItemClassification[];
   itemName: string;
   manufacturer?: string;
   memorabilia?: boolean;
@@ -221,10 +221,10 @@ interface ItemSummaries {
   websiteDisplayGroupName?: string;
 }
 
-interface ItemBrowseinterfaceification {
+interface ItemBrowseClassification {
   displayName: string;
-  interfaceificationId: string;
-  parent?: ItemBrowseinterfaceification;
+  classificationId: string;
+  parent?: ItemBrowseClassification;
 }
 
 interface ItemContributor {
@@ -237,7 +237,7 @@ interface ItemContributorRole {
   value: string;
 }
 
-type Iteminterfaceification = 'BASE_PRODUCT' | 'OTHER' | 'PRODUCT_BUNDLE' | 'VARIATION_PARENT';
+type ItemClassification = 'BASE_PRODUCT' | 'OTHER' | 'PRODUCT_BUNDLE' | 'VARIATION_PARENT';
 
 interface ItemVendorDetails {
   marketplaceId: string;
