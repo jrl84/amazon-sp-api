@@ -1,6 +1,6 @@
 {
   "name": "amazon-sp-api",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Amazon Selling Partner API client",
   "main": "index.js",
   "directories": {
