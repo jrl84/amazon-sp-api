@@ -127,15 +127,12 @@ type FBARemovalsReportsType =
   | 'GET_FBA_FULFILLMENT_REMOVAL_ORDER_DETAIL_DATA'
   | 'GET_FBA_FULFILLMENT_REMOVAL_SHIPMENT_DETAIL_DATA';
 
-type FBASubscribeAndSaveReportsType = 'GET_FBA_SNS_FORECAST_DATA' | 'GET_FBA_SNS_PERFORMANCE_DATA';
-
 type FBAReportType =
   | FBASalesReportsType
   | FBAInventoryReportsType
   | FBAPaymentsReportsType
   | FBAConcessionsReportsType
-  | FBARemovalsReportsType
-  | FBASubscribeAndSaveReportsType;
+  | FBARemovalsReportsType;
 
 type TaxReportType =
   | 'GST_MTR_STOCK_TRANSFER_REPORT'
