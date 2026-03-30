@@ -84,6 +84,8 @@ import {
   GetCatalogItemPath,
   GetCatalogItemQuery,
   GetCatalogItemResponse,
+  SearchCatalogItemsQuery,
+  SearchCatalogItemsResponse,
   ListCatalogCategoriesQuery,
   ListCatalogCategoriesResponse
 } from './operations/catalogItems';
@@ -152,6 +154,7 @@ declare module 'amazon-sp-api' {
 
   type Operation =
     | 'getCatalogItem'
+    | 'searchCatalogItems'
     | 'listCatalogCategories'
     | 'getItemEligibilityPreview'
     | 'getInventorySummaries'
@@ -199,7 +202,9 @@ declare module 'amazon-sp-api' {
 
   type ObjectType<TOperation> = TOperation extends 'getCatalogItem'
     ? GetCatalogItemResponse
-    : TOperation extends 'listCatalogCategories'
+    : TOperation extends 'searchCatalogItems'
+      ? SearchCatalogItemsResponse
+      : TOperation extends 'listCatalogCategories'
       ? ListCatalogCategoriesResponse
       : TOperation extends 'getItemEligibilityPreview'
         ? GetItemEligibilityPreviewResponse
@@ -228,73 +233,75 @@ declare module 'amazon-sp-api' {
                               : TOperation extends 'listTransactions'
                                 ? ListTransactionsResponse
                                 : TOperation extends 'updateInboundShipment'
-                                  ? UpdateInboundShipmentResponse
-                                  : TOperation extends 'createInboundShipment'
-                                    ? CreateInboundShipmentResponse
-                                    : TOperation extends 'getPreorderInfo'
-                                      ? GetPreorderInfoResponse
-                                      : TOperation extends 'confirmPreorder'
-                                        ? ConfirmPreorderResponse
-                                        : TOperation extends 'getPrepInstructions'
-                                          ? GetPrepInstructionsResponse
-                                          : TOperation extends 'getReport'
-                                            ? GetReportResponse
-                                            : TOperation extends 'getReportDocument'
-                                              ? GetReportDocumentResponse
-                                              : TOperation extends 'getOrders'
-                                                ? GetOrdersResponse
-                                                : TOperation extends 'getOrder'
-                                                  ? GetOrderResponse
-                                                  : TOperation extends 'getOrderBuyerInfo'
-                                                    ? GetOrderBuyerInfoResponse
-                                                    : TOperation extends 'getOrderAddress'
-                                                      ? GetOrderAddressResponse
-                                                      : TOperation extends 'getOrderItem'
-                                                        ? GetOrderItemsResponse
-                                                        : TOperation extends 'getOrderItemsBuyerInfo'
-                                                          ? GetOrderItemsBuyerInfoResponse
-                                                          : TOperation extends 'createInboundShipmentPlan'
-                                                            ? CreateInboundShipmentPlanResponse
-                                                            : TOperation extends 'putTransportDetails'
-                                                              ? PutTransportDetailsResponse
-                                                              : TOperation extends 'getTransportDetails'
-                                                                ? GetTransportDetailsResponse
-                                                                : TOperation extends 'voidTransport'
-                                                                  ? VoidTransportResponse
-                                                                  : TOperation extends 'estimateTransport'
-                                                                    ? EstimateTransportResponse
-                                                                    : TOperation extends 'confirmTransport'
-                                                                      ? ConfirmTransportResponse
-                                                                      : TOperation extends 'createRestrictedDataToken'
-                                                                        ? CreateRestrictedDataTokenResponse
-                                                                        : TOperation extends 'getLabels'
-                                                                          ? GetLabelsResponse
-                                                                          : TOperation extends 'getBillOfLading'
-                                                                            ? GetBillOfLadingResponse
-                                                                            : TOperation extends 'getShipments'
-                                                                              ? GetShipmentsResponse
-                                                                              : TOperation extends 'getShipmentItemsByShipmentId'
-                                                                                ? GetShipmentItemsByShipmentIdResponse
-                                                                                : TOperation extends 'getShipmentItems'
-                                                                                  ? GetShipmentItemsResponse
-                                                                                  : // ProductPricing
-                                                                                    TOperation extends 'getItemOffers'
+                                ? UpdateInboundShipmentResponse
+                                : TOperation extends 'createInboundShipment'
+                                  ? CreateInboundShipmentResponse
+                                  : TOperation extends 'getPreorderInfo'
+                                    ? GetPreorderInfoResponse
+                                    : TOperation extends 'confirmPreorder'
+                                      ? ConfirmPreorderResponse
+                                      : TOperation extends 'getPrepInstructions'
+                                        ? GetPrepInstructionsResponse
+                                        : TOperation extends 'getReport'
+                                          ? GetReportResponse
+                                          : TOperation extends 'getReportDocument'
+                                            ? GetReportDocumentResponse
+                                            : TOperation extends 'getOrders'
+                                              ? GetOrdersResponse
+                                              : TOperation extends 'getOrder'
+                                                ? GetOrderResponse
+                                                : TOperation extends 'getOrderBuyerInfo'
+                                                  ? GetOrderBuyerInfoResponse
+                                                  : TOperation extends 'getOrderAddress'
+                                                    ? GetOrderAddressResponse
+                                                    : TOperation extends 'getOrderItems'
+                                                      ? GetOrderItemsResponse
+                                                      : TOperation extends 'getOrderItemsBuyerInfo'
+                                                        ? GetOrderItemsBuyerInfoResponse
+                                                        : TOperation extends 'createInboundShipmentPlan'
+                                                          ? CreateInboundShipmentPlanResponse
+                                                          : TOperation extends 'putTransportDetails'
+                                                            ? PutTransportDetailsResponse
+                                                            : TOperation extends 'getTransportDetails'
+                                                              ? GetTransportDetailsResponse
+                                                              : TOperation extends 'voidTransport'
+                                                                ? VoidTransportResponse
+                                                                : TOperation extends 'estimateTransport'
+                                                                  ? EstimateTransportResponse
+                                                                  : TOperation extends 'confirmTransport'
+                                                                    ? ConfirmTransportResponse
+                                                                    : TOperation extends 'createRestrictedDataToken'
+                                                                      ? CreateRestrictedDataTokenResponse
+                                                                      : TOperation extends 'getLabels'
+                                                                        ? GetLabelsResponse
+                                                                        : TOperation extends 'getBillOfLading'
+                                                                          ? GetBillOfLadingResponse
+                                                                          : TOperation extends 'getShipments'
+                                                                            ? GetShipmentsResponse
+                                                                            : TOperation extends 'getShipmentItemsByShipmentId'
+                                                                              ? GetShipmentItemsByShipmentIdResponse
+                                                                              : TOperation extends 'getShipmentItems'
+                                                                                ? GetShipmentItemsResponse
+                                                                                : // ProductPricing
+                                                                                  TOperation extends 'getItemOffers'
+                                                                                  ? GetItemOffersResponse
+                                                                                  : TOperation extends 'productPricing.getItemOffers'
                                                                                     ? GetItemOffersResponse
-                                                                                    : TOperation extends 'productPricing.getItemOffers'
-                                                                                      ? GetItemOffersResponse
-                                                                                      : TOperation extends 'createReport'
-                                                                                        ? CreateReportResponse
-                                                                                        : TOperation extends 'getMarketplaceParticipations'
-                                                                                          ? GetMarketplaceParticipationsResponse
-                                                                                          : TOperation extends 'searchProductTypes'
-                                                                                            ? SearchProductTypesResponse
-                                                                                            : TOperation extends 'searchDefinitionsProductTypes'
-                                                                                              ? SearchDefinitionsProductTypesResponse
-                                                                                              : any;
+                                                                                    : TOperation extends 'createReport'
+                                                                                      ? CreateReportResponse
+                                                                                      : TOperation extends 'getMarketplaceParticipations'
+                                                                                        ? GetMarketplaceParticipationsResponse
+                                                                                        : TOperation extends 'searchProductTypes'
+                                                                                          ? SearchProductTypesResponse
+                                                                                          : TOperation extends 'searchDefinitionsProductTypes'
+                                                                                            ? SearchDefinitionsProductTypesResponse
+                                                                                            : any;
 
   type QueryType<TOperation extends Operation> = TOperation extends 'getCatalogItem'
     ? GetCatalogItemQuery
-    : TOperation extends 'listCatalogCategories'
+    : TOperation extends 'searchCatalogItems'
+      ? SearchCatalogItemsQuery
+      : TOperation extends 'listCatalogCategories'
       ? ListCatalogCategoriesQuery
       : TOperation extends 'getItemEligibilityPreview'
         ? GetItemEligibilityPreviewQuery
@@ -313,37 +320,37 @@ declare module 'amazon-sp-api' {
                     : TOperation extends 'listTransactions'
                       ? ListTransactionsQuery
                       : TOperation extends 'getPreorderInfo'
-                        ? GetPreorderInfoQuery
-                        : TOperation extends 'confirmPreorder'
-                          ? ConfirmPreorderQuery
-                          : TOperation extends 'getPrepInstructions'
-                            ? GetPrepInstructionsQuery
-                            : TOperation extends 'createReport'
-                              ? CreateReportResponse
-                              : TOperation extends 'getOrders'
-                                ? GetOrdersQuery
-                                : TOperation extends 'getOrderItems'
-                                  ? GetOrderItemsQuery
-                                  : TOperation extends 'getOrderItemsBuyerInfo'
-                                    ? GetOrderItemsBuyerInfoQuery
-                                    : TOperation extends 'getLabels'
-                                      ? GetLabelsQuery
-                                      : TOperation extends 'getShipments'
-                                        ? GetShipmentsQuery
-                                        : TOperation extends 'getShipmentItemsByShipmentId'
-                                          ? GetShipmentItemsByShipmentIdQuery
-                                          : TOperation extends 'getShipmentItems'
-                                            ? GetShipmentItemsQuery
-                                            : // ProductPricing
-                                              TOperation extends 'getItemOffers'
+                      ? GetPreorderInfoQuery
+                      : TOperation extends 'confirmPreorder'
+                        ? ConfirmPreorderQuery
+                        : TOperation extends 'getPrepInstructions'
+                          ? GetPrepInstructionsQuery
+                          : TOperation extends 'createReport'
+                            ? CreateReportResponse
+                            : TOperation extends 'getOrders'
+                              ? GetOrdersQuery
+                              : TOperation extends 'getOrderItems'
+                                ? GetOrderItemsQuery
+                                : TOperation extends 'getOrderItemsBuyerInfo'
+                                  ? GetOrderItemsBuyerInfoQuery
+                                  : TOperation extends 'getLabels'
+                                    ? GetLabelsQuery
+                                    : TOperation extends 'getShipments'
+                                      ? GetShipmentsQuery
+                                      : TOperation extends 'getShipmentItemsByShipmentId'
+                                        ? GetShipmentItemsByShipmentIdQuery
+                                        : TOperation extends 'getShipmentItems'
+                                          ? GetShipmentItemsQuery
+                                          : // ProductPricing
+                                            TOperation extends 'getItemOffers'
+                                            ? GetItemOffersQuery
+                                            : TOperation extends 'productPricing.getItemOffers'
                                               ? GetItemOffersQuery
-                                              : TOperation extends 'productPricing.getItemOffers'
-                                                ? GetItemOffersQuery
-                                                : TOperation extends 'searchProductTypes'
-                                                  ? SearchProductTypesQuery
-                                                  : TOperation extends 'searchDefinitionsProductTypes'
-                                                    ? SearchDefinitionsProductTypesQuery
-                                                    : any;
+                                              : TOperation extends 'searchProductTypes'
+                                                ? SearchProductTypesQuery
+                                                : TOperation extends 'searchDefinitionsProductTypes'
+                                                  ? SearchDefinitionsProductTypesQuery
+                                                  : any;
 
   type PathType<TOperation extends Operation> = TOperation extends 'getCatalogItem'
     ? GetCatalogItemPath
