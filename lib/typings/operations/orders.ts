@@ -81,14 +81,14 @@ export type GetOrderAddressResponse = OrderAddress;
 
 export type GetOrderBuyerInfoResponse = OrderBuyerInfo;
 
-/** V0: callAPI unwraps payload → returns Order directly.
- *  2026-01-01: no payload → returns { order: Order } */
-export type GetOrderResponse = Order & {order?: Order};
+/** V0: callAPI unwraps payload → Order_v0 directly.
+ *  2026-01-01: no payload → { order: Order_2026_01_01 } */
+export type GetOrderResponse = Order_v0 | {order: Order_2026_01_01};
 
-/** V0: callAPI unwraps payload → returns OrdersList directly.
- *  2026-01-01: no payload → returns { orders, pagination, ... } */
-export type GetOrdersResponse = OrdersList & {
-  orders?: Order[];
+/** V0: callAPI unwraps payload → OrdersList directly.
+ *  2026-01-01: no payload → { orders, pagination } */
+export type GetOrdersResponse = OrdersList | {
+  orders: Order_2026_01_01[];
   pagination?: OrdersPagination;
 };
 
@@ -348,7 +348,7 @@ export interface OrderBuyerInfo {
   PurchaseOrderNumber?: string;
 }
 
-export interface Order {
+export interface Order_v0 {
   AmazonOrderId: string;
   SellerOrderId?: string;
   PurchaseDate: string;
@@ -396,11 +396,14 @@ export interface Order {
   AutomatedShippingSettings?: AutomatedShippingSettings;
   HasRegulatedItems?: boolean;
   ElectronicInvoiceStatus?: string;
-  // 2026-01-01 fields (camelCase)
-  orderId?: string;
+}
+
+export interface Order_2026_01_01 {
+  orderId: string;
   orderAliases?: OrderAlias[];
   createdTime?: string;
   lastUpdatedTime?: string;
+  orderStatus?: FulfillmentStatus2026;
   programs?: string[];
   associatedOrders?: AssociatedOrder[];
   salesChannel?: SalesChannel;
@@ -411,6 +414,9 @@ export interface Order {
   orderItems?: FulfilledOrderItem[];
   packages?: OrderPackage[];
 }
+
+/** Union of both API versions. Use `'orderId' in order` to discriminate. */
+export type Order = Order_v0 | Order_2026_01_01;
 
 export interface OrderAlias {
   aliasId: string;
