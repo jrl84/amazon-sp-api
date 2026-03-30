@@ -10,6 +10,7 @@ import {
   GetOrderItemsPath,
   GetOrderItemsQuery,
   GetOrderPath,
+  GetOrderQuery,
   GetOrderResponse,
   GetOrdersQuery,
   GetOrdersResponse
@@ -174,6 +175,7 @@ declare module 'amazon-sp-api' {
     | 'getReport'
     | 'getReportDocument'
     | 'getOrders'
+    | 'searchOrders'
     | 'getOrder'
     | 'getOrderBuyerInfo'
     | 'getOrderAddress'
@@ -243,7 +245,9 @@ declare module 'amazon-sp-api' {
                                               ? GetReportDocumentResponse
                                               : TOperation extends 'getOrders'
                                                 ? GetOrdersResponse
-                                                : TOperation extends 'getOrder'
+                                                : TOperation extends 'searchOrders'
+                                                  ? GetOrdersResponse
+                                                  : TOperation extends 'getOrder'
                                                   ? GetOrderResponse
                                                   : TOperation extends 'getOrderBuyerInfo'
                                                     ? GetOrderBuyerInfoResponse
@@ -322,7 +326,11 @@ declare module 'amazon-sp-api' {
                               ? CreateReportResponse
                               : TOperation extends 'getOrders'
                                 ? GetOrdersQuery
-                                : TOperation extends 'getOrderItems'
+                                : TOperation extends 'searchOrders'
+                                  ? GetOrdersQuery
+                                  : TOperation extends 'getOrder'
+                                    ? GetOrderQuery
+                                    : TOperation extends 'getOrderItems'
                                   ? GetOrderItemsQuery
                                   : TOperation extends 'getOrderItemsBuyerInfo'
                                     ? GetOrderItemsBuyerInfoQuery
