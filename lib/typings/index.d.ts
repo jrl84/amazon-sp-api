@@ -236,7 +236,7 @@ declare module 'amazon-sp-api' {
     | 'createGovernmentInvoice'
     | 'getGovernmentInvoiceStatus'
     | 'getGovernmentInvoiceDocument'
-    | string;
+    | (string & {});
 
   type ObjectType<TOperation> = TOperation extends 'getCatalogItem'
     ? GetCatalogItemResponse
