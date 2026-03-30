@@ -107,6 +107,30 @@ import {
   ListTransactionsResponse
 } from './operations/finances';
 import {CreateRestrictedDataTokenBody, CreateRestrictedDataTokenResponse} from './operations/tokens';
+import {
+  CreateGovernmentInvoiceBody,
+  CreateGovernmentInvoiceResponse,
+  CreateInvoicesExportBody,
+  CreateInvoicesExportResponse,
+  GetGovernmentInvoiceDocumentPath,
+  GetGovernmentInvoiceDocumentQuery,
+  GetGovernmentInvoiceDocumentResponse,
+  GetGovernmentInvoiceStatusQuery,
+  GetGovernmentInvoiceStatusResponse,
+  GetInvoicesAttributesQuery,
+  GetInvoicesAttributesResponse,
+  GetInvoicesDocumentPath,
+  GetInvoicesDocumentResponse,
+  GetInvoicesExportPath,
+  GetInvoicesExportResponse,
+  GetInvoicesExportsQuery,
+  GetInvoicesExportsResponse,
+  GetInvoicePath,
+  GetInvoiceQuery,
+  GetInvoiceResponse,
+  GetInvoicesQuery,
+  GetInvoicesResponse
+} from './operations/invoices';
 import {IReqOptions} from './IReqOptions';
 
 import {ReportDocumentType} from './download';
@@ -202,6 +226,16 @@ declare module 'amazon-sp-api' {
     | 'getMarketplaceParticipations'
     | 'searchProductTypes'
     | 'searchDefinitionsProductTypes'
+    | 'getInvoicesAttributes'
+    | 'getInvoicesDocument'
+    | 'getInvoicesExports'
+    | 'createInvoicesExport'
+    | 'getInvoicesExport'
+    | 'getInvoices'
+    | 'getInvoice'
+    | 'createGovernmentInvoice'
+    | 'getGovernmentInvoiceStatus'
+    | 'getGovernmentInvoiceDocument'
     | string;
 
   type ObjectType<TOperation> = TOperation extends 'getCatalogItem'
@@ -299,7 +333,27 @@ declare module 'amazon-sp-api' {
                                                                                           ? SearchProductTypesResponse
                                                                                           : TOperation extends 'searchDefinitionsProductTypes'
                                                                                             ? SearchDefinitionsProductTypesResponse
-                                                                                            : any;
+                                                                                            : TOperation extends 'getInvoicesAttributes'
+                                                                                              ? GetInvoicesAttributesResponse
+                                                                                              : TOperation extends 'getInvoicesDocument'
+                                                                                                ? GetInvoicesDocumentResponse
+                                                                                                : TOperation extends 'getInvoicesExports'
+                                                                                                  ? GetInvoicesExportsResponse
+                                                                                                  : TOperation extends 'createInvoicesExport'
+                                                                                                    ? CreateInvoicesExportResponse
+                                                                                                    : TOperation extends 'getInvoicesExport'
+                                                                                                      ? GetInvoicesExportResponse
+                                                                                                      : TOperation extends 'getInvoices'
+                                                                                                        ? GetInvoicesResponse
+                                                                                                        : TOperation extends 'getInvoice'
+                                                                                                          ? GetInvoiceResponse
+                                                                                                          : TOperation extends 'createGovernmentInvoice'
+                                                                                                            ? CreateGovernmentInvoiceResponse
+                                                                                                            : TOperation extends 'getGovernmentInvoiceStatus'
+                                                                                                              ? GetGovernmentInvoiceStatusResponse
+                                                                                                              : TOperation extends 'getGovernmentInvoiceDocument'
+                                                                                                                ? GetGovernmentInvoiceDocumentResponse
+                                                                                                                : any;
 
   type QueryType<TOperation extends Operation> = TOperation extends 'getCatalogItem'
     ? GetCatalogItemQuery
@@ -356,7 +410,19 @@ declare module 'amazon-sp-api' {
                                                 ? SearchProductTypesQuery
                                                 : TOperation extends 'searchDefinitionsProductTypes'
                                                   ? SearchDefinitionsProductTypesQuery
-                                                  : any;
+                                                  : TOperation extends 'getInvoicesAttributes'
+                                                    ? GetInvoicesAttributesQuery
+                                                    : TOperation extends 'getInvoicesExports'
+                                                      ? GetInvoicesExportsQuery
+                                                      : TOperation extends 'getInvoices'
+                                                        ? GetInvoicesQuery
+                                                        : TOperation extends 'getInvoice'
+                                                          ? GetInvoiceQuery
+                                                          : TOperation extends 'getGovernmentInvoiceStatus'
+                                                            ? GetGovernmentInvoiceStatusQuery
+                                                            : TOperation extends 'getGovernmentInvoiceDocument'
+                                                              ? GetGovernmentInvoiceDocumentQuery
+                                                              : any;
 
   type PathType<TOperation extends Operation> = TOperation extends 'getCatalogItem'
     ? GetCatalogItemPath
@@ -413,7 +479,15 @@ declare module 'amazon-sp-api' {
                                                       ? GetItemOffersPath
                                                       : TOperation extends 'productPricing.getItemOffers'
                                                         ? GetItemOffersPath
-                                                        : any;
+                                                        : TOperation extends 'getGovernmentInvoiceDocument'
+                                                          ? GetGovernmentInvoiceDocumentPath
+                                                          : TOperation extends 'getInvoicesDocument'
+                                                            ? GetInvoicesDocumentPath
+                                                            : TOperation extends 'getInvoicesExport'
+                                                              ? GetInvoicesExportPath
+                                                              : TOperation extends 'getInvoice'
+                                                                ? GetInvoicePath
+                                                                : any;
 
   type BodyType<TOperation extends Operation> = TOperation extends 'createFeed'
     ? CreateFeedBody
@@ -431,7 +505,11 @@ declare module 'amazon-sp-api' {
                 ? PutTransportDetailsBody
                 : TOperation extends 'createRestrictedDataToken'
                   ? CreateRestrictedDataTokenBody
-                  : any;
+                  : TOperation extends 'createGovernmentInvoice'
+                    ? CreateGovernmentInvoiceBody
+                    : TOperation extends 'createInvoicesExport'
+                      ? CreateInvoicesExportBody
+                      : any;
 
   type ReqOptions = IReqOptions;
 
