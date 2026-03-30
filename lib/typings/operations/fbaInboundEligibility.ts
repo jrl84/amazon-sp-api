@@ -1,4 +1,3 @@
-import type {BaseResponse} from '../baseTypes';
 
 type Program = 'INBOUND' | 'COMMINGLING';
 type IneligibilityReasonList =
@@ -47,9 +46,7 @@ export interface GetItemEligibilityPreviewQuery {
   program: Program;
 }
 
-export interface GetItemEligibilityPreviewResponse extends BaseResponse {
-  payload?: ItemEligibilityPreview;
-}
+export type GetItemEligibilityPreviewResponse = ItemEligibilityPreview;
 
 interface ItemEligibilityPreview {
   asin: string;

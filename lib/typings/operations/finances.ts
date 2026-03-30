@@ -1,4 +1,3 @@
-import type {BaseResponse} from '../baseTypes';
 
 export interface ListFinancialEventGroupsQuery {
   MaxResultsPerPage?: number;
@@ -7,9 +6,7 @@ export interface ListFinancialEventGroupsQuery {
   NextToken?: string;
 }
 
-export interface ListFinancialEventGroupsResponse extends BaseResponse {
-  payload?: ListFinancialEventGroupsPayload;
-}
+export type ListFinancialEventGroupsResponse = ListFinancialEventGroupsPayload;
 
 export interface ListFinancialEventGroupsByGroupIdQuery {
   MaxResultsPerPage?: number;
@@ -20,9 +17,7 @@ export interface ListFinancialEventGroupsByGroupIdPath {
   eventGroupId: string;
 }
 
-export interface ListFinancialEventGroupsByGroupIdResponse extends BaseResponse {
-  payload?: ListFinancialEventsPayload;
-}
+export type ListFinancialEventGroupsByGroupIdResponse = ListFinancialEventsPayload;
 
 export interface ListFinancialEventsByOrderIdPath {
   orderId: string;
@@ -33,7 +28,7 @@ export interface ListFinancialEventsByOrderIdQuery {
   NextToken?: string;
 }
 
-export interface ListFinancialEventsByOrderIdResponse extends ListFinancialEventGroupsByGroupIdResponse {}
+export type ListFinancialEventsByOrderIdResponse = ListFinancialEventGroupsByGroupIdResponse;
 
 export interface ListFinancialEventsQuery {
   MaxResultsPerPage?: number;
@@ -50,11 +45,9 @@ export interface ListTransactionsQuery {
   nextToken?: string;
 }
 
-export interface ListFinancialEventsResponse extends ListFinancialEventGroupsByGroupIdResponse {}
+export type ListFinancialEventsResponse = ListFinancialEventGroupsByGroupIdResponse;
 
-export interface ListTransactionsResponse extends BaseResponse {
-  payload?: ListTransactionsPayload;
-}
+export type ListTransactionsResponse = ListTransactionsPayload;
 
 export interface ListFinancialEventGroupsPayload {
   NextToken?: string;

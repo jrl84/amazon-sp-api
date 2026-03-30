@@ -1,4 +1,3 @@
-import type {BaseResponse} from '../baseTypes';
 
 type BrandAnalyticsReportType =
   | 'GET_BRAND_ANALYTICS_MARKET_BASKET_REPORT'
@@ -184,7 +183,7 @@ export type ReportType =
   | B2BProductOpportunitiesReportType
   | RegulatoryComplianceReportType;
 
-export interface CreateReportResponse extends BaseResponse {
+export interface CreateReportResponse {
   reportId: string;
 }
 
@@ -198,25 +197,19 @@ export interface GetReportsQuery {
   nextToken?: string;
 }
 
-export interface GetReportsResponse extends BaseResponse {
-  payload?: Report[];
-}
+export type GetReportsResponse = Report[];
 
 export interface GetReportPath {
   reportId: string;
 }
 
-export interface GetReportResponse extends BaseResponse {
-  payload?: Report;
-}
+export type GetReportResponse = Report;
 
 export interface GetReportDocumentPath {
   reportDocumentId: string;
 }
 
-export interface GetReportDocumentResponse extends BaseResponse {
-  payload?: ReportDocument;
-}
+export type GetReportDocumentResponse = ReportDocument;
 
 export interface CreateReportBody {
   reportOptions?: ReportOptions;

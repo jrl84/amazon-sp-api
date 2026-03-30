@@ -1,4 +1,3 @@
-import type {BaseResponse} from '../baseTypes';
 
 /**
  * Combined query for getOrders (V0) and searchOrders (2026-01-01).
@@ -74,34 +73,24 @@ export interface GetOrderItemsBuyerInfoQuery {
   nextToken?: string;
 }
 
-export interface GetOrderItemsBuyerInfoResponse extends BaseResponse {
-  payload?: OrderItemsBuyerInfoList;
-}
+export type GetOrderItemsBuyerInfoResponse = OrderItemsBuyerInfoList;
 
-export interface GetOrderItemsResponse extends BaseResponse {
-  payload?: OrderItemsList;
-}
+export type GetOrderItemsResponse = OrderItemsList;
 
-export interface GetOrderAddressResponse extends BaseResponse {
-  payload?: OrderAddress;
-}
+export type GetOrderAddressResponse = OrderAddress;
 
-export interface GetOrderBuyerInfoResponse extends BaseResponse {
-  payload?: OrderBuyerInfo;
-}
+export type GetOrderBuyerInfoResponse = OrderBuyerInfo;
 
-export interface GetOrderResponse extends BaseResponse {
-  payload?: Order; // V0
-  order?: Order;   // 2026-01-01
-}
+/** V0: callAPI unwraps payload → returns Order directly.
+ *  2026-01-01: no payload → returns { order: Order } */
+export type GetOrderResponse = Order & {order?: Order};
 
-export interface GetOrdersResponse extends BaseResponse {
-  payload?: OrdersList;              // V0
-  orders?: Order[];                  // 2026-01-01
-  pagination?: OrdersPagination;     // 2026-01-01
-  lastUpdatedBefore?: string;        // 2026-01-01
-  createdBefore?: string;            // 2026-01-01
-}
+/** V0: callAPI unwraps payload → returns OrdersList directly.
+ *  2026-01-01: no payload → returns { orders, pagination, ... } */
+export type GetOrdersResponse = OrdersList & {
+  orders?: Order[];
+  pagination?: OrdersPagination;
+};
 
 interface OrdersPagination {
   nextToken?: string;

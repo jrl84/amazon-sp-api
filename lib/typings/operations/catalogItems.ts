@@ -1,4 +1,3 @@
-import type {BaseResponse} from '../baseTypes';
 
 /**
  * Catalog Items API
@@ -29,9 +28,7 @@ export interface SearchCatalogItemsQuery {
   keywordsLocale?: string;
 }
 
-export interface SearchCatalogItemsResponse extends BaseResponse {
-  payload: ItemSearchResults;
-}
+export type SearchCatalogItemsResponse = ItemSearchResults;
 
 type IdentifiersType = 'ASIN' | 'EAN' | 'GTIN' | 'ISBN' | 'JAN' | 'MINSAN' | 'SKU' | 'UPC';
 
@@ -59,9 +56,7 @@ export interface GetCatalogItemPath {
   asin: string;
 }
 
-export interface GetCatalogItemResponse extends BaseResponse {
-  payload?: Item;
-}
+export type GetCatalogItemResponse = Item;
 
 /**
  * The response schema for the searchCatalogItems operation.
@@ -316,9 +311,7 @@ export interface ListCatalogCategoriesQuery {
   SellerSKU?: string;
 }
 
-export interface ListCatalogCategoriesResponse extends BaseResponse {
-  payload?: Category[];
-}
+export type ListCatalogCategoriesResponse = Category[];
 
 interface Category {
   ProductCategoryId?: string;

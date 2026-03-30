@@ -1,4 +1,3 @@
-import type {BaseResponse} from '../baseTypes';
 
 type GranularityType = 'Marketplace';
 
@@ -12,7 +11,7 @@ export interface GetInventorySummariesQuery {
   marketplaceIds: string[];
 }
 
-export interface GetInventorySummariesResponse extends BaseResponse {
+export interface GetInventorySummariesResponse {
   granularity?: Granularity;
   inventorySummaries?: InventorySummary[];
   nextToken?: string;

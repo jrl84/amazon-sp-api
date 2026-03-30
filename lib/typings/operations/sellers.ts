@@ -1,4 +1,3 @@
-import type {BaseResponse} from '../baseTypes';
 
 interface MarketplaceParticipation {
   marketplace: Marketplace;
@@ -19,6 +18,4 @@ interface Participation {
   hasSuspendedListings: boolean;
 }
 
-export interface GetMarketplaceParticipationsResponse extends BaseResponse {
-  payload?: MarketplaceParticipation[];
-}
+export type GetMarketplaceParticipationsResponse = MarketplaceParticipation[];

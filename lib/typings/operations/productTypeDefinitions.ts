@@ -1,5 +1,3 @@
-import type {BaseResponse} from '../baseTypes';
-
 // SearchProductTypes
 export interface ProductType {
   name: string;
@@ -13,7 +11,7 @@ export interface SearchProductTypesQuery {
   keywords?: string;
 }
 
-export interface SearchProductTypesResponse extends BaseResponse {
+export interface SearchProductTypesResponse {
   productTypes: ProductType[];
   productTypeVersion: string;
 }
@@ -48,7 +46,7 @@ export interface SearchDefinitionsProductTypesQuery {
   locale: string;
 }
 
-export interface SearchDefinitionsProductTypesResponse extends BaseResponse {
+export interface SearchDefinitionsProductTypesResponse {
   metaSchema: SchemaLink;
   schema: SchemaLink;
   requirements: 'ENFORCED' | 'NOT_ENFORCED';

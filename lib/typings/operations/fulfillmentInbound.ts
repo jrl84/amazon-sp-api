@@ -1,4 +1,3 @@
-import type {BaseResponse} from '../baseTypes';
 
 export interface CreateInboundShipmentPlanBody {
   ShipFromAddress: Address;
@@ -8,10 +7,8 @@ export interface CreateInboundShipmentPlanBody {
   InboundShipmentPlanRequestItems: InboundShipmentPlanRequestItem[];
 }
 
-export interface CreateInboundShipmentPlanResponse extends BaseResponse {
-  payload?: {
-    InboundShipmentPlans: InboundShipmentPlan[];
-  };
+export interface CreateInboundShipmentPlanResponse {
+  InboundShipmentPlans: InboundShipmentPlan[];
 }
 
 interface BasePath {
@@ -20,15 +17,13 @@ interface BasePath {
 
 export interface UpdateInboundShipmentPath extends BasePath {}
 
-export interface UpdateInboundShipmentResponse extends BaseResponse {
-  payload?: {
-    ShipmentId: string;
-  };
+export interface UpdateInboundShipmentResponse {
+  ShipmentId: string;
 }
 
 export interface CreateInboundShipmentPath extends BasePath {}
 
-export interface CreateInboundShipmentResponse extends UpdateInboundShipmentResponse {}
+export type CreateInboundShipmentResponse = UpdateInboundShipmentResponse;
 
 export interface GetPreorderInfoPath extends BasePath {}
 
@@ -36,9 +31,7 @@ export interface GetPreorderInfoQuery {
   MarketplaceId: string;
 }
 
-export interface GetPreorderInfoResponse extends BaseResponse {
-  payload?: GetPreorderInfoResult;
-}
+export type GetPreorderInfoResponse = GetPreorderInfoResult;
 
 export interface ConfirmPreorderPath {
   shipmentId: string;
@@ -49,9 +42,7 @@ export interface ConfirmPreorderQuery {
   MarketplaceId: string;
 }
 
-export interface ConfirmPreorderResponse extends BaseResponse {
-  payload?: ConfirmPreorderResult;
-}
+export type ConfirmPreorderResponse = ConfirmPreorderResult;
 
 export interface GetPrepInstructionsQuery {
   ShipToCountryCode: string;
@@ -59,9 +50,7 @@ export interface GetPrepInstructionsQuery {
   ASINList?: string[];
 }
 
-export interface GetPrepInstructionsResponse extends BaseResponse {
-  payload?: GetPrepInstructionsResult;
-}
+export type GetPrepInstructionsResponse = GetPrepInstructionsResult;
 
 interface GetPrepInstructionsResult {
   SKUPrepInstructionsList?: SKUPrepInstructions[];
@@ -349,9 +338,7 @@ interface Pallet {
   IsStacked: boolean;
 }
 
-export interface PutTransportDetailsResponse extends BaseResponse {
-  payload?: CommonTransportResult;
-}
+export type PutTransportDetailsResponse = CommonTransportResult;
 
 interface CommonTransportResult {
   TransportResult?: TransportResult;
@@ -378,9 +365,7 @@ type TransportStatus =
 
 export interface GetTransportDetailsPath extends BasePath {}
 
-export interface GetTransportDetailsResponse extends BaseResponse {
-  payload?: GetTransportDetailsResult;
-}
+export type GetTransportDetailsResponse = GetTransportDetailsResult;
 
 interface GetTransportDetailsResult {
   TransportContent?: TransportContent;
@@ -462,21 +447,15 @@ type PackageStatus = 'SHIPPED' | 'IN_TRANSIT' | 'DELIVERED' | 'CHECKED_IN' | 'RE
 
 export interface VoidTransportPath extends BasePath {}
 
-export interface VoidTransportResponse extends BaseResponse {
-  payload?: CommonTransportResult;
-}
+export type VoidTransportResponse = CommonTransportResult;
 
 export interface EstimateTransportPath extends BasePath {}
 
-export interface EstimateTransportResponse extends BaseResponse {
-  payload?: CommonTransportResult;
-}
+export type EstimateTransportResponse = CommonTransportResult;
 
 export interface ConfirmTransportPath extends BasePath {}
 
-export interface ConfirmTransportResponse extends BaseResponse {
-  payload?: CommonTransportResult;
-}
+export type ConfirmTransportResponse = CommonTransportResult;
 
 export interface GetLabelsPath extends BasePath {}
 
@@ -506,9 +485,7 @@ type PageType =
 
 type LabelType = 'BARCODE_2D' | 'UNIQUE' | 'PALLET';
 
-export interface GetLabelsResponse extends BaseResponse {
-  payload?: LabelDownloadURL;
-}
+export type GetLabelsResponse = LabelDownloadURL;
 
 interface LabelDownloadURL {
   DownloadURL?: string;
@@ -516,9 +493,7 @@ interface LabelDownloadURL {
 
 export interface GetBillOfLadingPath extends BasePath {}
 
-export interface GetBillOfLadingResponse extends BaseResponse {
-  payload?: BillOfLadingDownloadURL;
-}
+export type GetBillOfLadingResponse = BillOfLadingDownloadURL;
 
 interface BillOfLadingDownloadURL {
   DownloadURL?: string;
@@ -534,9 +509,7 @@ export interface GetShipmentsQuery {
   MarketplaceId: string;
 }
 
-export interface GetShipmentsResponse extends BaseResponse {
-  payload?: GetShipmentsResult;
-}
+export type GetShipmentsResponse = GetShipmentsResult;
 
 type ShipmentStatusList =
   | 'WORKING'
@@ -584,9 +557,7 @@ export interface GetShipmentItemsByShipmentIdQuery {
   MarketplaceId: string;
 }
 
-export interface GetShipmentItemsByShipmentIdResponse extends BaseResponse {
-  payload?: GetShipmentItemsResult;
-}
+export type GetShipmentItemsByShipmentIdResponse = GetShipmentItemsResult;
 
 interface GetShipmentItemsResult {
   ItemData?: InboundShipmentItem[];
@@ -601,8 +572,6 @@ export interface GetShipmentItemsQuery {
   MarketplaceId: string;
 }
 
-export interface GetShipmentItemsResponse extends BaseResponse {
-  payload?: GetShipmentItemsResult;
-}
+export type GetShipmentItemsResponse = GetShipmentItemsResult;
 
 type GetShipmentItemsQueryType = 'DATE_RANGE' | 'NEXT_TOKEN';

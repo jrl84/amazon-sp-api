@@ -1,4 +1,3 @@
-import type {BaseResponse} from '../baseTypes';
 
 type ProcessingStatus = 'IN_QUEUE' | 'IN_PROGRESS' | 'DONE' | 'CANCELLED' | 'FATAL';
 
@@ -12,8 +11,8 @@ export interface GetFeedsQuery {
   nextToken?: string;
 }
 
-export interface GetFeedsResponse extends BaseResponse {
-  payload?: Feed[];
+export interface GetFeedsResponse {
+  feeds?: Feed[];
   nextToken?: string;
 }
 
@@ -39,7 +38,7 @@ interface FeedOptions {
   [key: string]: string;
 }
 
-export interface CreateFeedResponse extends BaseResponse {
+export interface CreateFeedResponse {
   feedId: string;
 }
 
@@ -47,23 +46,19 @@ export interface GetFeedPath {
   feedId: string;
 }
 
-export interface GetFeedResponse extends BaseResponse {
-  payload?: Feed;
-}
+export type GetFeedResponse = Feed;
 
 export interface CancelFeedPath {
   feedId: string;
 }
 
-export interface CancelFeedResponse extends BaseResponse {}
+export type CancelFeedResponse = Record<string, never>;
 
 export interface CreateFeedDocumentBody {
   contentType: string;
 }
 
-export interface CreateFeedDocumentResponse extends BaseResponse {
-  payload?: CreateFeedDocumentResult;
-}
+export type CreateFeedDocumentResponse = CreateFeedDocumentResult;
 
 interface CreateFeedDocumentResult {
   feedDocumentId: string;
@@ -74,9 +69,7 @@ export interface GetFeedDocumentPath {
   feedDocumentId: string;
 }
 
-export interface GetFeedDocumentResponse extends BaseResponse {
-  payload?: FeedDocument;
-}
+export type GetFeedDocumentResponse = FeedDocument;
 
 export interface FeedDocument extends CreateFeedDocumentResult {
   compressionAlgorithm?: 'GZIP';

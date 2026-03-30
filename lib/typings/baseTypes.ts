@@ -6,9 +6,6 @@ export interface Errors {
   details?: string;
 }
 
-export interface BaseResponse {
-  errors?: Errors;
-}
 
 interface Credentials {
   SELLING_PARTNER_APP_CLIENT_ID?: string;

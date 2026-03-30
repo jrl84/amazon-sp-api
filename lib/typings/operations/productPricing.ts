@@ -1,4 +1,3 @@
-import type {BaseResponse} from '../baseTypes';
 
 interface MoneyType {
   CurrencyCode: string;
@@ -39,7 +38,7 @@ export interface GetItemOffersPath {
   Asin: string;
 }
 
-export interface GetItemOffersResponse extends BaseResponse {
+export interface GetItemOffersResponse {
   ASIN: string;
   status: Status;
   ItemCondition: ItemConditionType;
