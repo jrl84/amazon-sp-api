@@ -64,7 +64,7 @@ export interface DownloadStreamOptions {
 
 export type Scope = 'sellingpartnerapi::notifications' | 'sellingpartnerapi::client_credential:rotation';
 
-export interface ExchangeResponse extends BaseResponse {
+export interface ExchangeResponse {
   access_token: string;
   token_type: 'bearer';
   expires_in: number;
