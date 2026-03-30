@@ -1,17 +1,26 @@
 import type {BaseResponse} from '../baseTypes';
 
 /**
- *  2022-04-01 searchCatalogItems and getCatalogItem
- *  V0 listCatalogItems (deprecated in 2022 but still in use)
+ * Catalog Items API
+ * - 2022-04-01: searchCatalogItems, getCatalogItem
+ * - 2020-12-01: searchCatalogItems, getCatalogItem
+ * - V0 (deprecated, still in use): listCatalogCategories
+ *
+ * SearchCatalogItemsQuery/Response and GetCatalogItemQuery/Response are
+ * compatible across both 2022-04-01 and 2020-12-01.
  */
 
 export interface SearchCatalogItemsQuery {
-  identifiers?: string;
+  /** Product identifiers to search by. Mutually exclusive with `keywords`. 2022-04-01 only. */
+  identifiers?: string[];
+  /** Required when `identifiers` is set. 2022-04-01 only. */
   identifiersType?: IdentifiersType;
   marketplaceIds: string[];
   includedData?: IncludedData[];
   locale?: string;
+  /** Required when `identifiersType` is `SKU`. 2022-04-01 only. */
   sellerId?: string;
+  /** Required in 2020-12-01. Mutually exclusive with `identifiers` in 2022-04-01. */
   keywords?: string[];
   brandNames?: string[];
   classificationIds?: string[];
@@ -32,16 +41,18 @@ export interface GetCatalogItemQuery {
   locale?: string;
 }
 
+/** Combined includedData values across 2022-04-01 and 2020-12-01 */
 type IncludedData =
   | 'attributes'
-  | 'classifications'
-  | 'dimensions'
+  | 'classifications' // 2022-04-01 only
+  | 'dimensions'      // 2022-04-01 only
   | 'identifiers'
   | 'images'
   | 'productTypes'
-  | 'relationships'
+  | 'relationships'   // 2022-04-01 only
   | 'salesRanks'
   | 'summaries'
+  | 'variations'      // 2020-12-01 only
   | 'vendorDetails';
 
 export interface GetCatalogItemPath {
@@ -78,15 +89,16 @@ interface Refinements {
 interface Item {
   asin: string;
   attributes?: ItemAttributes;
-  classifications?: ItemBrowseClassifications;
-  dimensions?: ItemDimensions;
+  classifications?: ItemBrowseClassifications[]; // 2022-04-01
+  dimensions?: ItemDimensions[];                  // 2022-04-01
   identifiers?: ItemIdentifiers[];
   images?: ItemImages[];
   productTypes?: ItemProductTypes[];
-  relationships?: ItemRelationships[];
-  salesRanks: ItemSalesRanks[];
-  summaries: ItemSummaries[];
-  vendorDetails?: ItemVendorDetails;
+  relationships?: ItemRelationships[];  // 2022-04-01
+  variations?: ItemVariationsByMarketplace[];      // 2020-12-01
+  salesRanks?: ItemSalesRanks[];
+  summaries?: ItemSummaries[];
+  vendorDetails?: ItemVendorDetails[];
 }
 
 interface BrandRefinement {
@@ -100,34 +112,32 @@ interface ClassificationRefinement {
   classificationId: string;
 }
 
-interface ItemAttributes {
-  displayName: string;
-  classificationId: string;
-  parent?: ItemBrowseClassifications;
-}
+/** Free-form JSON object keyed by attribute name (additionalProperties: true) */
+type ItemAttributes = Record<string, unknown>;
 
+/** Per-marketplace browse classifications (2022-04-01) */
 interface ItemBrowseClassifications {
-  displayName: string;
-  classificationId: string;
-  parent?: ItemBrowseClassifications;
+  marketplaceId: string;
+  classifications?: ItemBrowseClassification[];
 }
 
+/** Per-marketplace dimensions (2022-04-01) */
 interface ItemDimensions {
   marketplaceId: string;
-  item: Dimensions;
-  package: Dimensions;
+  item?: Dimensions;
+  package?: Dimensions;
 }
 
 interface Dimensions {
-  height: Dimension;
-  length: Dimension;
-  weight: Dimension;
-  width: Dimension;
+  height?: Dimension;
+  length?: Dimension;
+  weight?: Dimension;
+  width?: Dimension;
 }
 
 interface Dimension {
-  unit: string;
-  value: number;
+  unit?: string;
+  value?: number;
 }
 
 interface ItemIdentifiers {
@@ -178,36 +188,51 @@ interface ItemVariationTheme {
 
 type Type = 'VARIATION' | 'PACKAGE_HIERARCHY';
 
+/** Per-marketplace variation data (2020-12-01) */
+interface ItemVariationsByMarketplace {
+  marketplaceId: string;
+  asins: string[];
+  variationType: 'PARENT' | 'CHILD';
+}
+
 interface ItemSalesRanks {
   marketplaceId: string;
-  classificationRanks: ItemClassificationSalesRank[];
-  displayGroupRanks: ItemDisplayGroupSalesRank[];
+  classificationRanks?: ItemClassificationSalesRank[]; // 2022-04-01
+  displayGroupRanks?: ItemDisplayGroupSalesRank[];      // 2022-04-01
+  ranks?: ItemSalesRank[];                              // 2020-12-01
 }
 
 interface ItemClassificationSalesRank {
   classificationId: string;
   title: string;
-  link: string;
+  link?: string;
   rank: number;
 }
 
 interface ItemDisplayGroupSalesRank {
   websiteDisplayGroup: string;
   title: string;
-  link: string;
+  link?: string;
+  rank: number;
+}
+
+interface ItemSalesRank {
+  title: string;
+  link?: string;
   rank: number;
 }
 
 interface ItemSummaries {
   marketplaceId: string;
+  // 2022-04-01
   adultProduct?: boolean;
   autographed?: boolean;
   brand?: string;
   browseClassification?: ItemBrowseClassification;
   color?: string;
   contributors?: ItemContributor[];
-  itemClassification?: ItemClassification[];
-  itemName: string;
+  itemClassification?: ItemClassification;
+  itemName?: string;
   manufacturer?: string;
   memorabilia?: boolean;
   modelNumber?: string;
@@ -219,6 +244,12 @@ interface ItemSummaries {
   tradeInEligible?: boolean;
   websiteDisplayGroup?: string;
   websiteDisplayGroupName?: string;
+  // 2020-12-01
+  brandName?: string;
+  browseNode?: string;
+  colorName?: string;
+  sizeName?: string;
+  styleName?: string;
 }
 
 interface ItemBrowseClassification {
@@ -244,10 +275,14 @@ interface ItemVendorDetails {
   brandCode?: string;
   manufacturerCode?: string;
   manufacturerCodeParent?: string;
-  productCategory?: ItemVendorDetailsCategory;
   productGroup?: string;
-  productSubcategory?: ItemVendorDetailsCategory;
   replenishmentCategory?: ReplenishmentCategory;
+  // 2022-04-01: category as objects
+  productCategory?: ItemVendorDetailsCategory;
+  productSubcategory?: ItemVendorDetailsCategory;
+  // 2020-12-01: category as flat strings
+  categoryCode?: string;
+  subcategoryCode?: string;
 }
 
 interface ItemVendorDetailsCategory {
