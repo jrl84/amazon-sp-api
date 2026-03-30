@@ -1,4 +1,3 @@
-
 export interface ListFinancialEventGroupsQuery {
   MaxResultsPerPage?: number;
   FinancialEventGroupStartedBefore?: string;
@@ -42,6 +41,8 @@ export interface ListTransactionsQuery {
   postedBefore?: string;
   marketplaceId?: string;
   transactionStatus?: 'DEFERRED' | 'RELEASED' | 'DEFERRED_RELEASED';
+  relatedIdentifierName?: 'ORDER_ID' | 'FINANCIAL_EVENT_GROUP_ID';
+  relatedIdentifierValue?: string;
   nextToken?: string;
 }
 
@@ -106,6 +107,7 @@ export interface FinancialEvents {
   NetworkComminglingTransactionEventList?: NetworkComminglingTransactionEvent[];
   AffordabilityExpenseEventList?: AffordabilityExpenseEvent[];
   AffordabilityExpenseReversalEventList?: AffordabilityExpenseEvent[];
+  EBTRefundReimbursementOnlyEventList?: EBTRefundReimbursementOnlyEvent[];
 }
 
 export interface ShipmentEvent {
@@ -465,4 +467,12 @@ export interface AffordabilityExpenseEvent {
   TaxTypeSGST: Currency;
   TaxTypeIGST: Currency;
   TotalExpense?: Currency;
+}
+
+export interface EBTRefundReimbursementOnlyEvent {
+  AmazonOrderId?: string;
+  PostedDate?: string;
+  BaseAmount?: Currency;
+  TaxAmount?: Currency;
+  TransactionType?: string;
 }
