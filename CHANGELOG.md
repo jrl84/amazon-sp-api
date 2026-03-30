@@ -1,3 +1,36 @@
+## [v1.2.1](https://github.com/jrl84/amazon-sp-api/tree/v1.2.1) (2026-03-30)
+
+[Full Changelog](https://github.com/jrl84/amazon-sp-api/compare/v1.2.0...v1.2.1)
+
+**Notable changes:**
+
+- Added new orders endpoint (v2026-01-01)
+- Added new government invoice (BR only) operations for invoices endpoint
+- Fixed multiple TS issues
+
+**Commits:**
+
+- Added return_as_payload option that will return the result as a "payload" key/value --> then also restore_rate is included (feature request [\#323](https://github.com/jrl84/amazon-sp-api/issues/323)) ([`96e8bf8`](https://github.com/jrl84/amazon-sp-api/commit/96e8bf844b4d993fcd2429f1c61d0db976e99e54))
+- Fix issue [\#318](https://github.com/jrl84/amazon-sp-api/issues/318) ([`68e1790`](https://github.com/jrl84/amazon-sp-api/commit/68e179044330e525b6be6920535ad4f543930025))
+- Optimized types for operations with multiple versions ([`606a7d1`](https://github.com/jrl84/amazon-sp-api/commit/606a7d18bf4ed49ec89bc08a41626539e86ab324))
+- Added types for invoices endpoint ([`78eee26`](https://github.com/jrl84/amazon-sp-api/commit/78eee26376d3093ae56344707cac59d99e555975))
+- Added new keys to finances types ([`4d563af`](https://github.com/jrl84/amazon-sp-api/commit/4d563af7b56d9776128e6b42f33ffbfa7c2c9a65))
+- Removed deprecated reports types ([`c642d0a`](https://github.com/jrl84/amazon-sp-api/commit/c642d0a12226df62ee603c1a554b7e6d044d5385))
+- Added new index.d.ts to typings/operations to fix tsconfig error ([`8091669`](https://github.com/jrl84/amazon-sp-api/commit/8091669c7c36208f5b2ea8d2570be9a1bd4b006f))
+- Added new invoice operations ([`2cd9bf3`](https://github.com/jrl84/amazon-sp-api/commit/2cd9bf386031e8865912235c4ebb0ad0071f682d))
+- Removed the unnecessary BaseResponse interface ([`5c5d5d6`](https://github.com/jrl84/amazon-sp-api/commit/5c5d5d6bb22ffab41c1b0661c0c8b567258b9cad))
+- Added new order endpoints typings ([`1fe7e5a`](https://github.com/jrl84/amazon-sp-api/commit/1fe7e5a97702613b4cb78a79606d335594f93e8f))
+- Fixed wrong restore rates in orders api ([`bf70624`](https://github.com/jrl84/amazon-sp-api/commit/bf706243d86750e61c523f8a0047d14d9924012d))
+- Removed unused typings from deprecated v0 catalogItems version ([`d481332`](https://github.com/jrl84/amazon-sp-api/commit/d481332082b9bb35141b849d678a05630557b10b))
+- Fixed catalogItems typings to work with the same interface for 2022 and 2020 version ([`eb35a01`](https://github.com/jrl84/amazon-sp-api/commit/eb35a01bb057d64a2df2c34ae6640989cca256f7))
+- Changed wrong key names "interfaceifications" to "classifications" in catalogItems typings ([`ec4d805`](https://github.com/jrl84/amazon-sp-api/commit/ec4d805ce3a5c2ca87c6c513464ba1690ed7ca9a))
+
+**Merged pull requests:**
+
+- feat: add the Orders API v2026-01-01 [\#328](https://github.com/jrl84/amazon-sp-api/pull/328) ([wangjue666](https://github.com/wangjue666))
+- feat\(types\): add typings for downloadStream [\#326](https://github.com/jrl84/amazon-sp-api/pull/326) ([NoelDeMartin](https://github.com/NoelDeMartin))
+- feat\(catalogItems\): add response type [\#309](https://github.com/jrl84/amazon-sp-api/pull/309) ([Roman991](https://github.com/Roman991))
+
 ## [v1.2.0](https://github.com/jrl84/amazon-sp-api/tree/v1.2.0) (2025-11-11)
 
 [Full Changelog](https://github.com/jrl84/amazon-sp-api/compare/v1.1.7...v1.2.0)
