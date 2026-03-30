@@ -23,6 +23,7 @@ interface Options {
   timeouts?: Timeouts;
   retry_remote_timeout?: boolean;
   https_proxy_agent?: Agent | false;
+  return_as_payload?: boolean;
 }
 
 export interface Config {
